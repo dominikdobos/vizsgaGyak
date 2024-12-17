@@ -4,13 +4,26 @@ import { ApiContext } from "./ApiContext";
 export const AdminContext = createContext("");
 
 export const AdminProvider = ({ children }) => {
+  const { postAdat, updateAdat } = useContext(ApiContext);
   const [adat, setAdat] = useState({
     szakdoga_nev: "",
     tagokneve: "",
     githublink: "",
     oldallink: "",
   });
-  const { postAdat } = useContext(ApiContext);
+  const [modosit, setModosit] = useState(false);
+  const [modositId, setModositId] = useState();
+
+  function kivalasztottModositas(id) {
+    setModosit(() => true);
+    setModositId(() => id);
+  }
+
+  function handleModosit(e) {
+    e.preventDefault();
+    console.log(adat);
+    updateAdat(`/szakdogak/${modositId}`, adat);
+  }
 
   function handleChange(event) {
     const { id, value } = event.target;
@@ -27,7 +40,16 @@ export const AdminProvider = ({ children }) => {
   }
 
   return (
-    <AdminContext.Provider value={{ adat, handleChange, handleSubmit }}>
+    <AdminContext.Provider
+      value={{
+        adat,
+        handleChange,
+        handleSubmit,
+        handleModosit,
+        modosit,
+        kivalasztottModositas,
+      }}
+    >
       {children}
     </AdminContext.Provider>
   );

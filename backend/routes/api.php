@@ -11,3 +11,5 @@ Route::get('/user', function (Request $request) {
 
 Route::get('/szakdogak', [SzakdogaController::class, 'getSzakdogak']);
 Route::post('/szakdogak', [SzakdogaController::class, 'postSzakdogak']);
+Route::delete('/szakdogak/{id}', [SzakdogaController::class, 'deleteSzakdoga']);
+Route::put('/szakdogak/{id}', [SzakdogaController::class, 'updateSzakdoga']);

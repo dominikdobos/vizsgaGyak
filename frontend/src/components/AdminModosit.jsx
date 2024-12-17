@@ -2,13 +2,13 @@ import { useContext } from "react";
 import AdminInput from "./AdminInput";
 import { AdminContext } from "../contexts/AdminContext";
 
-function AdminUrlap() {
-  const { adat, handleChange, handleSubmit } = useContext(AdminContext);
+function AdminModosit() {
+  const { adat, handleChange, handleModosit } = useContext(AdminContext);
 
   return (
     <div className="mt-5">
-      <h1>Szakdoga felvétel</h1>
-      <form onSubmit={handleSubmit}>
+      <h1>Szakdoga Módosítása</h1>
+      <form onSubmit={handleModosit}>
         <AdminInput
           szdCim="Szakdolgozat címe"
           id="szakdoga_nev"
@@ -43,11 +43,10 @@ function AdminUrlap() {
         />
 
         <button className="btn btn-primary" type="submit">
-          Felvesz
+          Módosítás
         </button>
       </form>
     </div>
   );
 }
-
-export default AdminUrlap;
+export default AdminModosit;

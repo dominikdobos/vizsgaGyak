@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { myAxios } from "./MyAxios";
 
 export const ApiContext = createContext("");
@@ -27,9 +27,9 @@ export const ApiProvider = ({ children }) => {
     }
   };
 
-  const updateAdat = async (vegpont) => {
+  const updateAdat = async (vegpont, adat) => {
     try {
-      const response = await myAxios.put(vegpont);
+      const response = await myAxios.put(vegpont, adat);
       console.log(response);
     } catch (err) {
       console.log("Hiba történt az adatok frissítésekor.");
@@ -38,7 +38,6 @@ export const ApiProvider = ({ children }) => {
   };
 
   const deleteAdat = async (vegpont) => {
-    // saját axios példányt használjuk
     try {
       const response = await myAxios.delete(vegpont);
       console.log(response);
@@ -48,17 +47,26 @@ export const ApiProvider = ({ children }) => {
     }
   };
 
-  //   function torles(id) {
-  //     setTermekLista(termekLista.filter((listaTargy) => id !== listaTargy.id));
-  //     deleteAdat(`/products/${id}`);
-  //   }
+  function szakdogaTorles(id) {
+    setSzakdogaLista(
+      szakdogaLista.filter((listaTargy) => id !== listaTargy.id)
+    );
+    deleteAdat(`/szakdogak/${id}`);
+  }
 
   useEffect(() => {
     getAdat("/szakdogak", setSzakdogaLista);
   }, []);
 
   return (
-    <ApiContext.Provider value={{ postAdat, szakdogaLista, updateAdat }}>
+    <ApiContext.Provider
+      value={{
+        postAdat,
+        szakdogaLista,
+        szakdogaTorles,
+        updateAdat,
+      }}
+    >
       {children}
     </ApiContext.Provider>
   );
